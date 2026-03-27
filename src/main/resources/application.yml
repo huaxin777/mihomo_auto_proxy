@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: mihomo_auto_proxy
+logging:
+  config: classpath:./logback-spring.xml
+  file:
+    path: ./logs
+  level:
+    dao: info
+server:
+  port: 18034
