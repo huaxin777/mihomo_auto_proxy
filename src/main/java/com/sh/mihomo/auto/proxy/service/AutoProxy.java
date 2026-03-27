@@ -21,8 +21,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AutoProxy {
 
-    private final MihomoApi mihomoApi;
     private static final String GROUP_NAME = "一分机场";
+    private final MihomoApi mihomoApi;
 
     @Scheduled(fixedRate = 3 * 60 * 1000)
     public void executeEveryFiveMinutes() {
