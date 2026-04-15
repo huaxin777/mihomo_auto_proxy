@@ -26,19 +26,32 @@ public class AutoProxy {
 
     @Scheduled(fixedRate = 3 * 60 * 1000)
     public void executeEveryFiveMinutes() {
-        if (!WindowsProxyUtil.getProxyInfo().isEnabled()) {
-            log.info("未开启代理, 任务结束!");
+        // 检测代理状态
+        if (!WindowsProxyUtil.getProxyInfo().isEnabled() &&
+                !mihomoApi.getConfigs().getTun().isEnable()) {
+            log.info("未开启代理或Tun, 任务结束!");
             return;
         }
+
+        // 测速
         Map<String, Integer> delayMap = mihomoApi.delay(GROUP_NAME, "https://www.gstatic.com/generate_204", 5000);
+
+        // 获取当前节点
         ProxyGroupDto currentProxy = mihomoApi.getProxy(GROUP_NAME);
         String currentNow = currentProxy.getNow();
+
+        // 获取最佳节点
         ProxySwitchStrategy proxySwitchStrategy = new ProxySwitchStrategy(delayMap, currentNow);
         String bestProxy = proxySwitchStrategy.getBestProxy();
+
+        // 判断计算出的最佳节点是否等于当前节点
         if (currentNow.equals(bestProxy)) {
+            log.info("当前节点已为最佳节点, 跳过切换.");
             return;
         }
-        String name = mihomoApi.switchProxy(GROUP_NAME, Map.of("name", bestProxy));
-        log.info("节点切换成功:【{}】", name);
+
+        // 切换节点
+        mihomoApi.switchProxy(GROUP_NAME, Map.of("name", bestProxy));
+        log.info("节点切换成功.");
     }
 }

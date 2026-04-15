@@ -1,5 +1,6 @@
 package com.sh.mihomo.auto.proxy.client;
 
+import com.sh.mihomo.auto.proxy.dto.MihomoConfigDto;
 import com.sh.mihomo.auto.proxy.dto.ProxyGroupDto;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,7 +55,7 @@ public interface MihomoApi {
      * 查配置
      */
     @GetExchange("/configs")
-    String getConfigs();
+    MihomoConfigDto getConfigs();
 
     /**
      * PATCH /configs
