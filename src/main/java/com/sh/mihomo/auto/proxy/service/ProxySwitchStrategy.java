@@ -69,7 +69,7 @@ public class ProxySwitchStrategy {
         double score = delay;
 
         // =========================
-        // 1️⃣ 低倍率分段权重
+        // 低倍率分段权重
         // =========================
         if (isLow) {
 
@@ -86,14 +86,14 @@ public class ProxySwitchStrategy {
         }
 
         // =========================
-        // 2️⃣ 当前节点粘性
+        // 当前节点粘性
         // =========================
         if (isCurrent) {
             score *= 0.85;
         }
 
         // =========================
-        // 3️⃣ 当前是低倍率 → 惩罚普通节点
+        // 当前是低倍率 → 惩罚普通节点
         // =========================
         if (currentLow && !isLow) {
             score *= 1.15;
@@ -125,7 +125,7 @@ public class ProxySwitchStrategy {
         boolean bestLow = bestNode.contains(LOW_RANGE_NAME);
 
         // =========================
-        // 🚀 1️⃣ 普通 → 低倍率：优先
+        // 普通 → 低倍率：优先
         // =========================
         if (!currentLow && bestLow && bestScore < currentScore) {
             log.info("🚀 最终决策: 切换节点 【{} {}ms】 -> 【{} {}ms】 | 原因: 普通→低倍率优先",
@@ -135,7 +135,7 @@ public class ProxySwitchStrategy {
         }
 
         // =========================
-        // ❌ 2️⃣ 双重防抖
+        // 双重防抖
         // =========================
         if (delayDiff < SWITCH_THRESHOLD && scoreDiff < 5) {
             log.info("🛑 最终决策: 保持节点 【{} {}ms】 | 原因: 防抖（延迟差={}ms, 评分差={})",
@@ -147,7 +147,7 @@ public class ProxySwitchStrategy {
         }
 
         // =========================
-        // ✅ 3️⃣ 正常切换
+        // 正常切换
         // =========================
         log.info("✅ 最终决策: 切换节点 【{} {}ms】 -> 【{} {}ms】 | 原因: 综合评分更优（delayDiff={}ms, scoreDiff={}）",
                 currentNow, currentDelay,
