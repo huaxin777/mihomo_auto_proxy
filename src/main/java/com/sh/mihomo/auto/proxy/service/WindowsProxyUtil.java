@@ -16,8 +16,7 @@ import java.io.InputStreamReader;
 @Slf4j
 public class WindowsProxyUtil {
 
-    private static final String REG_PATH =
-            "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
+    private static final String REG_PATH = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
 
     /**
      * 获取代理配置
@@ -60,18 +59,11 @@ public class WindowsProxyUtil {
     private static String execReg(String key) {
         try {
 
-            ProcessBuilder pb = new ProcessBuilder(
-                    "reg",
-                    "query",
-                    REG_PATH,
-                    "/v",
-                    key
-            );
+            ProcessBuilder pb = new ProcessBuilder("reg", "query", REG_PATH, "/v", key);
 
             Process process = pb.start();
 
-            try (BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream()))) {
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
 
                 String line;
                 while ((line = reader.readLine()) != null) {
@@ -84,7 +76,8 @@ public class WindowsProxyUtil {
 
             process.waitFor(); // ✅ 等待执行完成
 
-        } catch (Exception e) {
+        }
+        catch (Exception e) {
             log.error("读取注册表失败", e);
         }
         return null;
@@ -130,10 +123,17 @@ public class WindowsProxyUtil {
      */
     @Data
     public static class ProxyInfo {
+
         private boolean enabled;
+
         private String host;
+
         private Integer port;
+
         private String type;
+
         private String raw;
+
     }
+
 }

@@ -22,13 +22,13 @@ import java.util.Map;
 public class AutoProxy {
 
     private static final String GROUP_NAME = "一分机场";
+
     private final MihomoApi mihomoApi;
 
     @Scheduled(fixedRate = 3 * 60 * 1000)
     public void executeEveryFiveMinutes() {
         // 检测代理状态
-        if (!WindowsProxyUtil.getProxyInfo().isEnabled() &&
-                !mihomoApi.getConfigs().getTun().isEnable()) {
+        if (!WindowsProxyUtil.getProxyInfo().isEnabled() && !mihomoApi.getConfigs().getTun().isEnable()) {
             log.info("未开启代理或Tun, 任务结束!");
             return;
         }
@@ -54,4 +54,5 @@ public class AutoProxy {
         mihomoApi.switchProxy(GROUP_NAME, Map.of("name", bestProxy));
         log.info("节点切换成功.");
     }
+
 }

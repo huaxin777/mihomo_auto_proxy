@@ -21,6 +21,7 @@ import java.util.Map;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProxyGroupDto {
+
     /**
      * 当前代理组是否在线。
      */
@@ -28,8 +29,7 @@ public class ProxyGroupDto {
     private boolean alive;
 
     /**
-     * 所有代理节点的列表。
-     * 包含不同的节点名称以及其他状态信息。
+     * 所有代理节点的列表。 包含不同的节点名称以及其他状态信息。
      */
     @JsonProperty("all")
     private List<String> all;
@@ -141,4 +141,5 @@ public class ProxyGroupDto {
      */
     @JsonProperty("xudp")
     private boolean xudp;
+
 }

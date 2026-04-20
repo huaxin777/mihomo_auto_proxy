@@ -21,6 +21,7 @@ public class ProxySwitchStrategy {
     private static final int SWITCH_THRESHOLD = 40;
 
     private final Map<String, Integer> delayMap;
+
     private final String currentNow;
 
     public ProxySwitchStrategy(Map<String, Integer> delayMap, String currentNow) {
@@ -28,9 +29,7 @@ public class ProxySwitchStrategy {
         this.delayMap = delayMap;
         this.currentNow = currentNow;
 
-        log.info("初始化: 当前节点:【{}】 延迟:【{}ms】",
-                currentNow,
-                delayMap.getOrDefault(currentNow, -1));
+        log.info("初始化: 当前节点:【{}】 延迟:【{}ms】", currentNow, delayMap.getOrDefault(currentNow, -1));
     }
 
     /**
@@ -76,10 +75,12 @@ public class ProxySwitchStrategy {
             if (delay <= 200) {
                 // 强优先
                 score *= 0.3;
-            } else if (delay <= 300) {
+            }
+            else if (delay <= 300) {
                 // 弱优先
                 score *= 0.6;
-            } else {
+            }
+            else {
                 // 惩罚
                 score *= 1.3;
             }
@@ -128,9 +129,8 @@ public class ProxySwitchStrategy {
         // 普通 → 低倍率：优先
         // =========================
         if (!currentLow && bestLow && bestScore < currentScore) {
-            log.info("🚀 最终决策: 切换节点 【{} {}ms】 -> 【{} {}ms】 | 原因: 普通→低倍率优先",
-                    currentNow, currentDelay,
-                    bestNode, bestDelay);
+            log.info("🚀 最终决策: 切换节点 【{} {}ms】 -> 【{} {}ms】 | 原因: 普通→低倍率优先", currentNow, currentDelay, bestNode,
+                    bestDelay);
             return bestNode;
         }
 
@@ -138,10 +138,7 @@ public class ProxySwitchStrategy {
         // 双重防抖
         // =========================
         if (delayDiff < SWITCH_THRESHOLD && scoreDiff < 5) {
-            log.info("🛑 最终决策: 保持节点 【{} {}ms】 | 原因: 防抖（延迟差={}ms, 评分差={})",
-                    currentNow,
-                    currentDelay,
-                    delayDiff,
+            log.info("🛑 最终决策: 保持节点 【{} {}ms】 | 原因: 防抖（延迟差={}ms, 评分差={})", currentNow, currentDelay, delayDiff,
                     String.format("%.2f", scoreDiff));
             return currentNow;
         }
@@ -149,12 +146,10 @@ public class ProxySwitchStrategy {
         // =========================
         // 正常切换
         // =========================
-        log.info("✅ 最终决策: 切换节点 【{} {}ms】 -> 【{} {}ms】 | 原因: 综合评分更优（delayDiff={}ms, scoreDiff={}）",
-                currentNow, currentDelay,
-                bestNode, bestDelay,
-                delayDiff,
-                String.format("%.2f", scoreDiff));
+        log.info("✅ 最终决策: 切换节点 【{} {}ms】 -> 【{} {}ms】 | 原因: 综合评分更优（delayDiff={}ms, scoreDiff={}）", currentNow,
+                currentDelay, bestNode, bestDelay, delayDiff, String.format("%.2f", scoreDiff));
 
         return bestNode;
     }
+
 }
