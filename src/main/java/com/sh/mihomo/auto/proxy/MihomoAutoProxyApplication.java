@@ -11,8 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 public class MihomoAutoProxyApplication {
 
-    static void main(String[] args) {
-        SpringApplication.run(MihomoAutoProxyApplication.class, args);
-    }
+	static void main(String[] args) {
+		SpringApplication.run(MihomoAutoProxyApplication.class, args);
+	}
 
 }

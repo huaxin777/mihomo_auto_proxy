@@ -23,35 +23,35 @@ import java.util.Map;
 @HttpExchange(url = "http://127.0.0.1:9090", headers = "Authorization=Bearer set-your-secret")
 public interface MihomoApi {
 
-    /**
-     * PUT /proxies/{group} 切节点
-     */
-    @PutExchange(value = "/proxies/{group}", contentType = MediaType.APPLICATION_JSON_VALUE)
-    String switchProxy(@PathVariable("group") String group, @RequestBody Map<String, String> body);
+	/**
+	 * PUT /proxies/{group} 切节点
+	 */
+	@PutExchange(value = "/proxies/{group}", contentType = MediaType.APPLICATION_JSON_VALUE)
+	String switchProxy(@PathVariable("group") String group, @RequestBody Map<String, String> body);
 
-    /**
-     * GET /proxies/{group} 查当前节点
-     */
-    @GetExchange("/proxies/{group}")
-    ProxyGroupDto getProxy(@PathVariable("group") String group);
+	/**
+	 * GET /proxies/{group} 查当前节点
+	 */
+	@GetExchange("/proxies/{group}")
+	ProxyGroupDto getProxy(@PathVariable("group") String group);
 
-    /**
-     * GET /group/{group}/delay 测速
-     */
-    @GetExchange("/group/{group}/delay")
-    Map<String, Integer> delay(@PathVariable("group") String group, @RequestParam("url") String url,
-            @RequestParam("timeout") int timeout);
+	/**
+	 * GET /group/{group}/delay 测速
+	 */
+	@GetExchange("/group/{group}/delay")
+	Map<String, Integer> delay(@PathVariable("group") String group, @RequestParam("url") String url,
+			@RequestParam("timeout") int timeout);
 
-    /**
-     * GET /configs 查配置
-     */
-    @GetExchange("/configs")
-    MihomoConfigDto getConfigs();
+	/**
+	 * GET /configs 查配置
+	 */
+	@GetExchange("/configs")
+	MihomoConfigDto getConfigs();
 
-    /**
-     * PATCH /configs 改配置
-     */
-    @PatchExchange(value = "/configs", contentType = MediaType.APPLICATION_JSON_VALUE)
-    String updateConfigs(@RequestBody Map<String, Object> body);
+	/**
+	 * PATCH /configs 改配置
+	 */
+	@PatchExchange(value = "/configs", contentType = MediaType.APPLICATION_JSON_VALUE)
+	String updateConfigs(@RequestBody Map<String, Object> body);
 
 }

@@ -16,16 +16,16 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @Configuration
 public class HttpClientConfig {
 
-    @Bean
-    public MihomoApi clashApi() {
+	@Bean
+	public MihomoApi clashApi() {
 
-        RestClient restClient = RestClient.builder().build();
+		RestClient restClient = RestClient.builder().build();
 
-        HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder()
-            .exchangeAdapter(RestClientAdapter.create(restClient))
-            .build();
+		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder()
+			.exchangeAdapter(RestClientAdapter.create(restClient))
+			.build();
 
-        return factory.createClient(MihomoApi.class);
-    }
+		return factory.createClient(MihomoApi.class);
+	}
 
 }
