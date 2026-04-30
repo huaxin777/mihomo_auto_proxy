@@ -54,4 +54,10 @@ public interface MihomoApi {
 	@PatchExchange(value = "/configs", contentType = MediaType.APPLICATION_JSON_VALUE)
 	String updateConfigs(@RequestBody Map<String, Object> body);
 
+	@PutExchange("/providers/proxies/{name}")
+	String updateProxyProvider(@PathVariable("name") String name);
+
+	@GetExchange("/providers/proxies")
+	Map<String, Map<String, Object>> getProviders();
+
 }

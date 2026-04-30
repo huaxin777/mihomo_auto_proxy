@@ -73,8 +73,8 @@ public class WindowsProxyUtil {
 					}
 				}
 			}
-
-			process.waitFor(); // ✅ 等待执行完成
+			// 待执行完成
+			process.waitFor();
 
 		}
 		catch (Exception e) {

@@ -33,6 +33,13 @@ public class AutoProxy {
 			return;
 		}
 
+		// 更新节点
+		Map<String, Map<String, Object>> providers = mihomoApi.getProviders();
+		Map<String, Object> providerMap = providers.get("providers");
+		for (String name : providerMap.keySet()) {
+			mihomoApi.updateProxyProvider(name);
+		}
+
 		// 测速
 		Map<String, Integer> delayMap = mihomoApi.delay(GROUP_NAME, "https://www.gstatic.com/generate_204", 5000);
 
