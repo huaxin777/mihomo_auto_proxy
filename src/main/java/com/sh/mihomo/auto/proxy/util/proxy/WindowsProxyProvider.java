@@ -1,7 +1,8 @@
-package com.sh.mihomo.auto.proxy.service;
+package com.sh.mihomo.auto.proxy.util.proxy;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -14,29 +15,10 @@ import java.io.InputStreamReader;
  * @Author: SH
  */
 @Slf4j
-public class WindowsProxyUtil {
+@Component
+public class WindowsProxyProvider implements ProxyProvider {
 
 	private static final String REG_PATH = "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Internet Settings";
-
-	/**
-	 * 获取代理配置
-	 */
-	public static ProxyInfo getProxyInfo() {
-
-		boolean enabled = readProxyEnable();
-		String server = readProxyServer();
-
-		ProxyInfo info = new ProxyInfo();
-		info.setEnabled(enabled);
-		info.setRaw(server);
-
-		if (enabled && server != null) {
-			parseProxy(server, info);
-		}
-
-		log.info("系统代理状态: {}", info);
-		return info;
-	}
 
 	/**
 	 * 是否开启代理
@@ -116,6 +98,32 @@ public class WindowsProxyUtil {
 				}
 			}
 		}
+	}
+
+	@Override
+	public OSTypeEnum getType() {
+		return OSTypeEnum.WINDOWS;
+	}
+
+	/**
+	 * 获取代理配置
+	 */
+	@Override
+	public boolean isEnableProxyInfo() {
+
+		boolean enabled = readProxyEnable();
+		String server = readProxyServer();
+
+		ProxyInfo info = new ProxyInfo();
+		info.setEnabled(enabled);
+		info.setRaw(server);
+
+		if (enabled && server != null) {
+			parseProxy(server, info);
+		}
+
+		log.info("系统代理状态: {}", info);
+		return info.isEnabled();
 	}
 
 	/**

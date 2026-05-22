@@ -2,6 +2,7 @@ package com.sh.mihomo.auto.proxy.service;
 
 import com.sh.mihomo.auto.proxy.client.MihomoApi;
 import com.sh.mihomo.auto.proxy.dto.ProxyGroupDto;
+import com.sh.mihomo.auto.proxy.util.proxy.ProxyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -25,10 +26,12 @@ public class AutoProxy {
 
 	private final MihomoApi mihomoApi;
 
+	private final ProxyService proxyService;
+
 	@Scheduled(fixedRate = 3 * 60 * 1000)
 	public void executeEveryFiveMinutes() {
 		// 检测代理状态
-		if (!WindowsProxyUtil.getProxyInfo().isEnabled() && !mihomoApi.getConfigs().getTun().isEnable()) {
+		if (proxyService.isEnableProxyInfo() && !mihomoApi.getConfigs().getTun().isEnable()) {
 			log.info("未开启代理或Tun, 任务结束!");
 			return;
 		}
