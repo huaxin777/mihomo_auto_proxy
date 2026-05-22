@@ -20,7 +20,7 @@ import java.util.Map;
  * @Date: 2026/3/20 11:20
  * @Author: SH
  */
-@HttpExchange(url = "http://127.0.0.1:9090", headers = "Authorization=Bearer set-your-secret")
+@HttpExchange
 public interface MihomoApi {
 
 	/**

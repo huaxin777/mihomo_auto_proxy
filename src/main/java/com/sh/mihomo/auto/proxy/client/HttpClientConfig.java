@@ -1,7 +1,9 @@
 package com.sh.mihomo.auto.proxy.client;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.support.RestClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
@@ -17,12 +19,16 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 public class HttpClientConfig {
 
 	@Bean
-	public MihomoApi clashApi() {
+	MihomoApi mihomoApi(@Value("${mihomo.api.base-url}") String baseUrl,
 
-		RestClient restClient = RestClient.builder().build();
+			@Value("${mihomo.api.secret}") String secret) {
 
-		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builder()
-			.exchangeAdapter(RestClientAdapter.create(restClient))
+		RestClient restClient = RestClient.builder()
+			.baseUrl(baseUrl)
+			.defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + secret)
+			.build();
+
+		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient))
 			.build();
 
 		return factory.createClient(MihomoApi.class);

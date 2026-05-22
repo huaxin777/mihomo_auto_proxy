@@ -11,3 +11,7 @@ logging:
     dao: info
 server:
   port: 18034
+mihomo:
+  api:
+    base-url: http://127.0.0.1:9090
+    secret: set-your-secret
