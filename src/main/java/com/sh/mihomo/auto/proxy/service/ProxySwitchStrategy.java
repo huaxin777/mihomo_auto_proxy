@@ -1,6 +1,5 @@
 package com.sh.mihomo.auto.proxy.service;
 
-import com.alibaba.fastjson2.JSON;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
@@ -25,7 +24,7 @@ public class ProxySwitchStrategy {
 	private final String currentNow;
 
 	public ProxySwitchStrategy(Map<String, Integer> delayMap, String currentNow) {
-		log.info("初始化: 节点信息:【{}】", JSON.toJSONString(delayMap));
+		log.info("初始化: 节点信息:【{}】", delayMap.toString());
 		this.delayMap = delayMap;
 		this.currentNow = currentNow;
 
