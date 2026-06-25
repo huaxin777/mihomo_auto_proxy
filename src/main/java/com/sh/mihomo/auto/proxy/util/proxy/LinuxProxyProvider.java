@@ -14,14 +14,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class LinuxProxyProvider implements ProxyProvider {
 
-	@Override
-	public OSTypeEnum getType() {
-		return OSTypeEnum.LINUX;
-	}
+    @Override
+    public OSTypeEnum getType() {
+        return OSTypeEnum.LINUX;
+    }
 
-	@Override
-	public boolean isEnableProxyInfo() {
-		return false;
-	}
-
+    @Override
+    public boolean isEnableProxyInfo() {
+        return false;
+    }
 }

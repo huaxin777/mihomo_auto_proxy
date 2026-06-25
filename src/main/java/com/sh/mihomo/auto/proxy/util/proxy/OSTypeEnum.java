@@ -8,31 +8,31 @@ package com.sh.mihomo.auto.proxy.util.proxy;
  * @Author: SH
  */
 public enum OSTypeEnum {
+    WINDOWS("win"),
+    LINUX("linux"),
+    UNKNOWN("");
 
-	WINDOWS("win"), LINUX("linux"), UNKNOWN("");
+    private final String keyword;
 
-	private final String keyword;
+    OSTypeEnum(String keyword) {
+        this.keyword = keyword;
+    }
 
-	OSTypeEnum(String keyword) {
-		this.keyword = keyword;
-	}
+    public static OSTypeEnum current() {
 
-	public static OSTypeEnum current() {
+        String os = System.getProperty("os.name", "").toLowerCase();
 
-		String os = System.getProperty("os.name", "").toLowerCase();
+        for (OSTypeEnum type : values()) {
 
-		for (OSTypeEnum type : values()) {
+            if (type == UNKNOWN) {
+                continue;
+            }
 
-			if (type == UNKNOWN) {
-				continue;
-			}
+            if (os.contains(type.keyword)) {
+                return type;
+            }
+        }
 
-			if (os.contains(type.keyword)) {
-				return type;
-			}
-		}
-
-		return UNKNOWN;
-	}
-
+        return UNKNOWN;
+    }
 }

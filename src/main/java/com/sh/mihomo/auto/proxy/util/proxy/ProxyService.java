@@ -14,17 +14,16 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class ProxyService {
 
-	private final ProxyProviderFactory proxyProviderFactory;
+    private final ProxyProviderFactory proxyProviderFactory;
 
-	public boolean isEnableProxyInfo() {
+    public boolean isEnableProxyInfo() {
 
-		ProxyProvider provider = proxyProviderFactory.getProvider();
+        ProxyProvider provider = proxyProviderFactory.getProvider();
 
-		if (provider == null) {
-			return false;
-		}
+        if (provider == null) {
+            return false;
+        }
 
-		return provider.isEnableProxyInfo();
-	}
-
+        return provider.isEnableProxyInfo();
+    }
 }
