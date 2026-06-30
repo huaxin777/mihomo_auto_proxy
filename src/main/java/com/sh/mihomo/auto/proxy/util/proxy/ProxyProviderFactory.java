@@ -2,11 +2,12 @@ package com.sh.mihomo.auto.proxy.util.proxy;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.Resource;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Component;
 
 /**
  * @ClassName: ProxyProviderFactory
@@ -19,25 +20,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class ProxyProviderFactory {
 
-    private final Map<OSTypeEnum, ProxyProvider> providerMap = new EnumMap<>(OSTypeEnum.class);
+	private final Map<OSTypeEnum, ProxyProvider> providerMap = new EnumMap<>(OSTypeEnum.class);
 
-    @Resource private List<ProxyProvider> proxyProviders;
+	@Resource
+	private List<ProxyProvider> proxyProviders;
 
-    @PostConstruct
-    public void init() {
+	@PostConstruct
+	public void init() {
 
-        for (ProxyProvider provider : proxyProviders) {
+		for (ProxyProvider provider : proxyProviders) {
 
-            providerMap.put(provider.getType(), provider);
+			providerMap.put(provider.getType(), provider);
 
-            log.info("注册代理实现: {}", provider.getType());
-        }
-    }
+			log.info("注册代理实现: {}", provider.getType());
+		}
+	}
 
-    public ProxyProvider getProvider() {
+	public ProxyProvider getProvider() {
 
-        OSTypeEnum osType = OSTypeEnum.current();
+		OSTypeEnum osType = OSTypeEnum.current();
 
-        return providerMap.get(osType);
-    }
+		return providerMap.get(osType);
+	}
+
 }

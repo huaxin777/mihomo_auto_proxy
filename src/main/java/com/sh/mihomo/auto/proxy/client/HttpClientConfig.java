@@ -18,20 +18,20 @@ import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 @Configuration
 public class HttpClientConfig {
 
-    @Bean
-    MihomoApi mihomoApi(
-            @Value("${mihomo.api.base-url}") String baseUrl,
-            @Value("${mihomo.api.secret}") String secret) {
+	@Bean
+	MihomoApi mihomoApi(@Value("${mihomo.api.base-url}") String baseUrl,
 
-        RestClient restClient =
-                RestClient.builder()
-                        .baseUrl(baseUrl)
-                        .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + secret)
-                        .build();
+			@Value("${mihomo.api.secret}") String secret) {
 
-        HttpServiceProxyFactory factory =
-                HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient)).build();
+		RestClient restClient = RestClient.builder()
+			.baseUrl(baseUrl)
+			.defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + secret)
+			.build();
 
-        return factory.createClient(MihomoApi.class);
-    }
+		HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(RestClientAdapter.create(restClient))
+			.build();
+
+		return factory.createClient(MihomoApi.class);
+	}
+
 }

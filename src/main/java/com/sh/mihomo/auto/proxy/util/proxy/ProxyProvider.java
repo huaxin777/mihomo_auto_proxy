@@ -9,13 +9,14 @@ package com.sh.mihomo.auto.proxy.util.proxy;
  */
 public interface ProxyProvider {
 
-    /**
-     * 支持的系统
-     */
-    OSTypeEnum getType();
+	/**
+	 * 支持的系统
+	 */
+	OSTypeEnum getType();
 
-    /**
-     * 判断是否开启代理
-     */
-    boolean isEnableProxyInfo();
+	/**
+	 * 判断是否开启代理
+	 */
+	boolean isEnableProxyInfo();
+
 }
